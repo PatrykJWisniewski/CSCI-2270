@@ -5,10 +5,6 @@
 int insertIntoSortedArray(int myArray[], int numEntries, int newValue)
 {
      int sortedArray[100]; //Intilizes a new array to act as a temp holder for the sorted ints
-     for(int a=0; a<100; a++)
-     {
-          sortedArray[a] = 100000;
-     }
 
      //If this is the first entry then set it as the first element
      if(numEntries == 0)
