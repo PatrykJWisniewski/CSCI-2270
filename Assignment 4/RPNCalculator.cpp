@@ -10,15 +10,22 @@ RPNCalculator::~RPNCalculator()
 {
      Operand* toBeDeleted;
 
+     if(stackHead == NULL)
+     {
+          return;
+     }
+
      //While their is more then one Operand
      while(stackHead->next != nullptr)
      {
           toBeDeleted = stackHead;
+          //std::cout << "Del" << stackHead->number << '\n';
           stackHead = stackHead->next;
           delete toBeDeleted;
      }
 
      //Deletes the final Operand
+     //std::cout << "Del" << stackHead->number << '\n';
      delete stackHead;
 }
 
@@ -54,6 +61,8 @@ void RPNCalculator::push(float num)
           op->next = stackHead;
           stackHead = op;
      }
+
+     //std::cout << stackHead->number << '\n';
 }
 
 void RPNCalculator::pop()
@@ -108,30 +117,30 @@ bool RPNCalculator::compute(std::string symbol)
           //Remove it and add it too the computedValue
           computedValue = stackHead->number;
           pop();
-     }
 
-     //If the stack is empty after poping the first element
-     if(isEmpty())
-     {
-          std::cout << "err: not enough operands" << '\n';
-          push(computedValue);
-     }
-     //If the stack is not empty
-     else
-     {
-          //Add them
-          if(symbol == "+")
+          //If the stack is empty after poping the first element
+          if(isEmpty())
           {
-               computedValue += stackHead->number;
-               pop();
+               std::cout << "err: not enough operands" << '\n';
+               push(computedValue);
           }
-          //Multiply them
-          else if(symbol == "*")
+          //If the stack is not empty
+          else
           {
-               computedValue *= stackHead->number;
-               pop();
+               //Add them
+               if(symbol == "+")
+               {
+                    computedValue += stackHead->number;
+                    pop();
+               }
+               //Multiply them
+               else if(symbol == "*")
+               {
+                    computedValue *= stackHead->number;
+                    pop();
+               }
           }
-     }
 
+     }
      push(computedValue); //Push the final value back too the stack
 }

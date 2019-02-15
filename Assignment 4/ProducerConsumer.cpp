@@ -49,7 +49,8 @@ void ProducerConsumer::enqueue(std::string item)
      {
           //Add the element too the queue
           queueEnd++;
-          queue[queueEnd] = item;
+          queueEnd = queueEnd%SIZE;
+          queue[queueEnd%SIZE] = item;
      }
      //If the queue is full...
      else
@@ -70,14 +71,18 @@ void ProducerConsumer::dequeue()
      {
           //Remove items from the front of thbe queue
           queueFront++;
+          queueFront = queueFront%SIZE;
      }
 
      //If the queue is empty then reset the queue start and end too negetive 1
-     if(queueFront > queueEnd)
+     if(queueFront-1 == queueEnd)
      {
           queueEnd = -1;
           queueFront = -1;
      }
+
+     //std::cout << queueEnd << '\n';
+     //std::cout << queueFront << '\n';
 }
 
 int ProducerConsumer::queueSize()
@@ -90,12 +95,20 @@ int ProducerConsumer::queueSize()
      //If the queue is not empty...
      else
      {
-          return (queueEnd - queueFront+1);
+          if((queueEnd - queueFront+1) > (queueFront - queueEnd+1))
+          {
+               return (queueEnd - queueFront+1);
+          }
+          else
+          {
+               return queueFront + queueEnd+1;
+          }
      }
 }
 
 std::string ProducerConsumer::peek()
 {
+
      //If the queue is empty...
      if(isEmpty())
      {
