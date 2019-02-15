@@ -6,7 +6,8 @@
 
 #include "RPNCalculator.hpp"
 #include <iostream>
-// you may include more libraries as needed
+#include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -34,28 +35,56 @@ bool isNumber(string s)
 
 int main()
 {
-  // TODO - Declare a stack to hold the operands
-  
+  RPNCalculator RPNcalc;
+
   cout << "Enter the operators and operands ('+', '*') in a postfix format" << endl;
 
   while(true)
   {
-    cout << "#> ";
-    /* TODO
-       1. Read input (operators and operands) until you encounter a "="
-       2. Use the isNumber function to check if the input is an operand
-       3. push all operands to the stack
-       4. If input is not an operand, call the compute function to evaluate
-          the partial expression
-    */
+       string input;
+       float result;
+       cout << "#> ";
 
+       getline(cin, input);
+
+       if(isNumber(input))
+       {
+            RPNcalc.push(stof(input));
+       }
+       else if(input == "*" || input == "+")
+       {
+            RPNcalc.compute(input);
+       }
+       else if(input == "=")
+       {
+            //If the stack is empt...
+            if(RPNcalc.isEmpty())
+            {
+                 std::cout << "No operands: Nothing to evaluate" << '\n';
+                 return 0;
+            }
+            //If it is not empty...
+            else
+            {
+                 //Pull the value from the head and remove it
+                 result = RPNcalc.peek()->number;
+                 RPNcalc.pop();
+            }
+
+            //If the stack is emepty after poping the last elemet...
+            if(RPNcalc.isEmpty())
+            {
+                 std::cout << result << '\n';
+                 return 0;
+            }
+            //If it is not empty then there are still uncomputed inputs in the stack
+            else
+            {
+                 std::cout << "Invalid expression" << '\n';
+                 return 0;
+            }
+       }
   }
-
-  /* TODO - If the stack is empty then print "No operands: Nothing to evaluate" */
-
-  /* TODO - Validate the expression
-      1. If valid then print the result
-      2. Else, print "Invalid expression"*/
 
   return 0;
 }
