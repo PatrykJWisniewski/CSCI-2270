@@ -1,0 +1,37 @@
+For this problem I created a main function that creates a linked list based on what value you use for i<x,
+so if you do i<1000 it will create a linked list with 1000 nodes. The link list can then be controlled by
+having the keys in the for loops for the node set for what you want. For example you can make all nodes
+but the head node be equal to i.
+
+After that I intilize the head of the odd and even linked list. As well as previous nodes so that I don't have
+to traverse the list when adding nodes. After that I check for if the initial linked list is NULL and
+let the user know if it is. If the initial linked list is not null I then proceed to traverse the entire initial
+linked list with a while loop and if the int is even I add it too the even list and vise-versa
+
+Before added it too the list I check if the head node has been intilized. If it has not then I make the
+first number be the head. If the head is already there then I add it too the linked list using the previous
+node so that I don't have to traverse. After one of these operations is done I then delete that node from the
+orginal linked list to prevent memory leaks.
+
+For this while loop I considered 0 to be even
+
+After the while loops runs I then do the entire thing again with one last if statement to catch the last node of
+the linked list. Now I do know that this is highly redundent so if I was to do this anywhere other then this test,
+I would create a class that would manage the linked list and make the heads and prev nodes of the linked
+list be private variables in that class, allowing me to modify them with functions from that class to avoid being
+as redundent.
+
+Finaly at the end I call the print function. The print function checks to see if the linked list has been
+intilized and if it has it traverses the entire array printing each value.
+
+For my tests:
+empty list
+only head node of initial list
+only 2 nodes
+10 nodes, every other one either even or odd
+all nodes being even
+all nodes being odd
+all nodes being 0
+
+It is also worth noting that if either the even or odd list is empty then the program will print that the
+linked list is not established. This is intended since the program calls print twice.

@@ -1,0 +1,19 @@
+For this problem I created a main function that creates a linked list based on what value you use for i<x,
+so if you do i<1000 it will create a linked list with 1000 nodes. The link list can then be controlled by
+having the keys in the for loops for the node set for what you want. For example you can make all nodes
+but the head node be equal to i. After that I call the sumEvens function and have it print what it returns.
+
+The sumEvens function works by first checking for an edge case of the linked list being empty or null.
+In this case the made it so that the function returns 0. If the linked list is not empty it goes thoruth each
+and every node in the linked list and check if it is even or not. If it is even then it adds in to an int
+called Count, after that it moves too the next node. In order to accout for the last node that is skipped by
+the while loop I made an if statement that runs after the while loop too check if the last element is even, and
+if it is then it adds it too the count. After this it returns the final sum of the even functions.
+
+My tests show output if:
+-for loop makes 10 with each node = i
+-for loop makes 11 with each node = i
+-for loop makes 10 with each node = 2 and head = 0
+-for loop with head for null
+-for loop with everything as 0
+-for loop makes 1000 with each node = 2 and head = 0
