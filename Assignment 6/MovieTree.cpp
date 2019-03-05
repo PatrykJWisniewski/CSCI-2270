@@ -233,6 +233,8 @@ TreeNode* DeleteTreeNode(TreeNode* toDelete, std::string title)
                succ = succ->leftChild;
           }
 
+          //This may be the right code
+          //toDelete->rightChild = deleteNode(toDelete->rightChild, succ->titleChar);
           succParent->leftChild = succ->rightChild;
           toDelete->head = succ->head;
           toDelete->titleChar = succ->titleChar;
