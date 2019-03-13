@@ -1,0 +1,21 @@
+For this Problem I created a tree class that can insert nodes and merge with another tree.
+I also grabbed the print2DUtil function from our 8th recitation so to I could visually test if my
+code is correctly merging two trees. In my main function I initialized BST's and added a bunch
+of values too these trees. After added the values I printed the trees to see what they look like.
+I added the values by using a simple addNode function that creates a new node and calls a
+recursive helper function that adds each node into the tree one after the other.
+
+After doing this I call the mergeTree function. How the mergeTree function works is that it merges
+a current tree with a different tree instead of creating a new tree. Because of this the function
+takes a single input of the root of the tree we want to merge into the current tree. After that
+it traverses to each node and inserts it to the tree we want to merge with and deletes the node
+from the old tree. This results in a single BST with values from both trees.
+
+I'm pretty sure that the time complexity of this function would be O(n) since it has to insert
+N amount of times with N being the amount of nodes in the tree being merged. However it is still
+faster then making a new tree so I'm not sure if that has effect on the O() notation.
+
+For testing I handled if
+-A 2 trees have multiple of the same number
+-If one of the trees is empty
+-If both are empty
