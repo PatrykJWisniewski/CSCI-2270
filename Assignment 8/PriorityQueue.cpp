@@ -10,7 +10,7 @@ PriorityQueue::PriorityQueue(int queueSize)
 
 PriorityQueue::~PriorityQueue()
 {
-
+     delete[] priorityQueue;
 }
 
 void PriorityQueue::enqueue(std::string _groupName, int _groupSize, int _cookingTime)
@@ -21,12 +21,12 @@ void PriorityQueue::enqueue(std::string _groupName, int _groupSize, int _cooking
           return;
      }
 
-     GroupNode* newGroupNode = new GroupNode();
-     newGroupNode->groupName = _groupName;
-     newGroupNode->groupSize = _groupSize;
-     newGroupNode->cookingTime = _cookingTime;
+     GroupNode newGroupNode;
+     newGroupNode.groupName = _groupName;
+     newGroupNode.groupSize = _groupSize;
+     newGroupNode.cookingTime = _cookingTime;
 
-     priorityQueue[currentQueueSize] = *newGroupNode;
+     priorityQueue[currentQueueSize] = newGroupNode;
      currentQueueSize++;
 
      repairUpward(currentQueueSize-1);
@@ -40,6 +40,7 @@ void PriorityQueue::dequeue()
      }
 
      priorityQueue[0] = priorityQueue[currentQueueSize-1];
+     currentQueueSize--;
 
      repairDownward(0);
 }
@@ -94,6 +95,10 @@ void PriorityQueue::repairUpward(int nodeIndex)
                {
                     swap = true;
                }
+               else
+               {
+                    swap = false;
+               }
           }
           else
           {
@@ -123,17 +128,13 @@ void PriorityQueue::repairDownward(int nodeIndex)
 
      do
      {
-          if(priorityQueue[nodeIndex*2+1].groupSize < priorityQueue[nodeIndex].groupSize)
+          //Checks to see if the next node to check is outside the queue size
+          if(nodeIndex*2+1 >= currentQueueSize)
           {
-               swap = true;
-               indexToSwapAt = nodeIndex*2+1;
+               return;
           }
-          else if(priorityQueue[nodeIndex*2+2].groupSize < priorityQueue[nodeIndex].groupSize)
-          {
-               swap = true;
-               indexToSwapAt = nodeIndex*2+2;
-          }
-          else if(priorityQueue[nodeIndex*2+1].groupSize == priorityQueue[nodeIndex].groupSize)
+
+          if(priorityQueue[nodeIndex*2+1].groupSize == priorityQueue[nodeIndex].groupSize)
           {
                if(priorityQueue[nodeIndex*2+1].cookingTime < priorityQueue[nodeIndex].cookingTime)
                {
@@ -141,25 +142,37 @@ void PriorityQueue::repairDownward(int nodeIndex)
                     indexToSwapAt = nodeIndex*2+1;
                }
           }
-          else if(priorityQueue[nodeIndex*2+2].groupSize == priorityQueue[nodeIndex].groupSize)
+          else if(priorityQueue[nodeIndex*2+1].groupSize < priorityQueue[nodeIndex].groupSize)
           {
-               if(priorityQueue[nodeIndex*2+2].cookingTime < priorityQueue[nodeIndex].cookingTime)
+               swap = true;
+               indexToSwapAt = nodeIndex*2+1;
+          }
+
+          if(priorityQueue[nodeIndex*2+2].groupSize == priorityQueue[nodeIndex*2+1].groupSize)
+          {
+               if(priorityQueue[nodeIndex*2+2].cookingTime < priorityQueue[nodeIndex*2+1].cookingTime)
                {
                     swap = true;
                     indexToSwapAt = nodeIndex*2+2;
                }
           }
-          else
+          else if(priorityQueue[nodeIndex*2+2].groupSize < priorityQueue[nodeIndex*2+1].groupSize)
+          {
+               swap = true;
+               indexToSwapAt = nodeIndex*2+2;
+          }
+
+          if(nodeIndex == indexToSwapAt)
           {
                swap = false;
           }
 
           if(swap)
           {
-               GroupNode tempNode = priorityQueue[nodeIndex*2+2];
-               priorityQueue[nodeIndex*2+2] = priorityQueue[nodeIndex];
+               GroupNode tempNode = priorityQueue[indexToSwapAt];
+               priorityQueue[indexToSwapAt] = priorityQueue[nodeIndex];
                priorityQueue[nodeIndex] = tempNode;
-               nodeIndex = nodeIndex*2+2;
+               nodeIndex = indexToSwapAt;
           }
      }
      while(swap);

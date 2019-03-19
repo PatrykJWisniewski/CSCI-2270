@@ -10,8 +10,8 @@ void PrintMenu()
      std::cout << "1. Get group information from file" << '\n';
      std::cout << "2. Add a group to Priority Queue" << '\n';
      std::cout << "3. Show next group in the queue" << '\n';
-     std::cout << "4. Serve next group" << '\n';
-     std::cout << "5. Serve entire queue" << '\n';
+     std::cout << "4. Serve Next group" << '\n';
+     std::cout << "5. Serve Entire Queue" << '\n';
      std::cout << "6. Quit" << '\n';
 }
 
@@ -70,15 +70,15 @@ int main(int argc, char const *argv[])
                          break;
                     }
 
-                    std::cout << "Enter Group Name:";
+                    std::cout << "Enter Group Name:" << '\n';
                     std::cin >> stringInput;
                     newNode.groupName = stringInput;
 
-                    std::cout << "Enter Group Size:";
+                    std::cout << "Enter Group Size:" << '\n';
                     std::cin >> stringInput;
                     newNode.groupSize = std::stoi(stringInput);
 
-                    std::cout << "Enter Estimated Cooking Time:";
+                    std::cout << "Enter Estimated Cooking Time:" << '\n';
                     std::cin >> stringInput;
                     newNode.cookingTime = std::stoi(stringInput);
 
@@ -93,16 +93,35 @@ int main(int argc, char const *argv[])
                          break;
                     }
 
-                    std::cout << "Group Name:" << foodQueue.peek().groupName << '\n';
-                    std::cout << "Group Size:" << foodQueue.peek().groupSize << '\n';
-                    std::cout << "Estimated Cooking Time:" << foodQueue.peek().cookingTime << '\n';
+                    std::cout << "Group Name: " << foodQueue.peek().groupName << '\n';
+                    std::cout << "Group Size: " << foodQueue.peek().groupSize << '\n';
+                    std::cout << "Group Time: " << foodQueue.peek().cookingTime << '\n';
 
                     break;
 
                case '4':
+                    if(foodQueue.isEmpty())
+                    {
+                         std::cout << "Heap empty, cannot dequeue" << '\n';
+                         break;
+                    }
+
+                    std::cout << "Group Name: " << foodQueue.peek().groupName << " - Total Cook Time for the Group: " << foodQueue.peek().cookingTime << '\n';
+                    foodQueue.dequeue();
                     break;
 
                case '5':
+                    if(foodQueue.isEmpty())
+                    {
+                         std::cout << "Heap empty, cannot dequeue" << '\n';
+                         break;
+                    }
+
+                    while(!foodQueue.isEmpty())
+                    {
+                         std::cout << "Group Name: " << foodQueue.peek().groupName << "  - Total Cook Time for the Group: " << foodQueue.peek().cookingTime << '\n';
+                         foodQueue.dequeue();
+                    }
                     break;
 
                case '6':
