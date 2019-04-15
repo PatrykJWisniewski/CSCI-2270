@@ -1,0 +1,8 @@
+For this program I created the solution by using the same idea that you would for a inorder travelsal for a BST.
+I traversed the tree in order and them checked if the value of the node was in the range of numbers we are looking for.
+If it was i then added it to the sum Value which recursively gets added to the final return value.
+I also changed the sumrange fucntcion a little bit by adding the root node and a sum value as an input.
+The idea is that you need to set sum to 0 since function uses the sum value for recusrion when adding valid nodes
+
+I tested this program with the BST in the write up, an empty tree, and I tested it on a tree that had no values that where in the range
+all of the tests are conducted inside the main function.

@@ -1,0 +1,12 @@
+I relize that this was one of the harder problems.
+For this problem I was unable to solve it. In my Graphs.cpp file you will see what I tried to do.
+I set up the graph in my main function in the same style as the exaple one in the write up.
+I attempted to find the number of nodes that are an N distance away by using a BFS travesal.
+The idea behind it was that I would keep track on what stage of the BFS we where on. And then once
+we got too the distance we are looking for instead of dequeueing the remaining elements from the queue
+we would just count them up and return them. So when looking for nodes 2 away from 3 we would enqueue 3, then enqueue 5,
+but we would not dequeue the edge of 5 since the edges of 5 are two away from 3.
+In my output I was able to get the tree from the write up to work when the distance was 1
+or 3 away, however I was unable to do it for when it was 2 away. I know that the issue was that it was dequeueing one element too many
+but I did not have time to find out why it was doing this in the span of the test. Givin more time i would try to try to fix this issues by
+checking if(nodesNStepsAway == 0) in a diffrent order since i think that is where the issue was arsing from.

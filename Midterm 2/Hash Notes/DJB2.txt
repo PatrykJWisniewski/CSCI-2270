@@ -1,0 +1,22 @@
+The DJB2 Algorithm
+
+The pseudocode and explanation:
+
+
+int hash(string word){
+  int hash = 5381;
+  for each character c in word:
+    hash = hash*33 + c;
+  hash = hash % hashTableSize;
+  if(hash < 0) hash+=hashTableSize;
+  return hash;
+}
+
+
+
+A simple sum of ASCII values would result in a
+collision between all words made up of the same characters (cat and act, for
+example). The DJB2 hash avoids this by applying the multiplication step as it
+iterates through the characters in the string. However, due to repeated
+multiplication, it is possible that the hash value will undergo integer overflow.
+That is the reason for the check to see if the hash value is less than 0.
